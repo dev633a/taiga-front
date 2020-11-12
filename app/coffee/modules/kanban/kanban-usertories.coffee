@@ -37,6 +37,8 @@ class KanbanUserstoriesService extends taiga.Service
     init: (project, usersById) ->
         @.project = project
         @.usersById = usersById
+        # console.log({userstories: @.userstoriesRaw.filter((us) => !us.swimlane)})
+        console.log({userstories: @.userstoriesRaw})
 
     resetFolds: () ->
         @.foldStatusChanged = {}
@@ -59,6 +61,7 @@ class KanbanUserstoriesService extends taiga.Service
 
     # don't call refresh to prevent unnecessary mutations in every single us
     add: (usList) ->
+        console.log(usList);
         if !Array.isArray(usList)
             usList = [usList]
 
@@ -248,6 +251,9 @@ class KanbanUserstoriesService extends taiga.Service
 
         @.project.swimlanes.forEach (swimlane) =>
             swimlaneUsByStatus = Immutable.Map()
+
+            console.log({swimlanes: @.project.swimlanes});
+            console.log({userstoriesRaw: @.userstoriesRaw});
 
             @.usByStatus.forEach (usList, statusId) =>
                 usListSwimlanes = usList.filter (usId) =>
